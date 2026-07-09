@@ -1,2 +1,14 @@
 import React from "react";
-import{Link}from"react-router-dom";export default function NotFound(){return <section className="page-section empty-state"><h1>Page not found</h1><Link className="primary-button" to="/">Go home</Link></section>}
+import { Link } from "react-router-dom";
+
+export default function NotFound() {
+  return (
+    <section className="page-section empty-state">
+      <h1>Page not found</h1>
+      <p>Sorry, the page you're looking for doesn't exist.</p>
+      <Link className="primary-button" to="/">
+        Go home
+      </Link>
+    </section>
+  );
+}

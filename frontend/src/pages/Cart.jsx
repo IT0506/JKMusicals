@@ -9,15 +9,16 @@ export default function Cart() {
     decreaseQty,
   } = useShop();
 
-  // ---------------- SAFE SUBTOTAL ----------------
+  // Standardized shipping calculation
   const subtotal = cart.reduce((sum, item) => {
     const price = item?.price || 0;
     const qty = item?.qty || 1;
     return sum + price * qty;
   }, 0);
 
-  const shipping = subtotal > 999 ? 0 : 99;
-  const total = subtotal + shipping;
+  const shipping = subtotal > 2000 ? 0 : 99;
+  const tax = subtotal * 0.18;
+  const total = subtotal + tax + shipping;
 
   return (
     <section className="page-section">
@@ -80,9 +81,14 @@ export default function Cart() {
   </div>
 
   <div className="summary-row">
+    <span>GST (18%)</span>
+    <strong>₹{tax.toLocaleString("en-IN")}</strong>
+  </div>
+
+  <div className="summary-row">
     <span>Shipping</span>
     <strong>
-      {subtotal > 999 ? "FREE" : "₹99"}
+      {shipping === 0 ? "FREE" : `₹${shipping}`}
     </strong>
   </div>
 
@@ -91,7 +97,7 @@ export default function Cart() {
   <div className="summary-row total">
     <span>Total</span>
     <strong>
-      ₹{(subtotal > 999 ? subtotal : subtotal + 99).toLocaleString("en-IN")}
+      ₹{total.toLocaleString("en-IN")}
     </strong>
   </div>
 

@@ -1,33 +1,49 @@
 package com.jkmusicals.controller;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.jkmusicals.model.Order;
-import com.jkmusicals.repository.OrderRepository;
+import com.jkmusicals.service.OrderService;
+import com.jkmusicals.dto.OrderRequest;
 
 @RestController
 @RequestMapping("/api/orders")
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:5173")
 public class OrderController {
 
-  @Autowired
-  private OrderRepository repo;
+    private final OrderService orderService;
 
-  @PostMapping
-  public Order createOrder(@RequestBody Order order) {
-    return repo.save(order);
-  }
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
-  @GetMapping
-  public List<Order> getOrders() {
-    return repo.findAll();
-  }
+    @PostMapping
+    public Order createOrder(@RequestBody OrderRequest orderRequest) {
+        return orderService.createOrder(orderRequest);
+    }
+
+    @GetMapping
+    public List<Order> getOrders() {
+        return orderService.getAllOrders();
+    }
+
+    @GetMapping("/{id}")
+    public Order getOrderById(@PathVariable Long id) {
+        return orderService.getOrderById(id);
+    }
+
+    @PutMapping("/{id}/status")
+    public Order updateOrderStatus(@PathVariable Long id, @RequestParam String status) {
+        return orderService.updateOrderStatus(id, status);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+    }
+
+    @GetMapping("/email/{email}")
+    public List<Order> getOrdersByEmail(@PathVariable String email) {
+        return orderService.getOrdersByEmail(email);
+    }
 }

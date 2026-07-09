@@ -1,13 +1,7 @@
 package com.jkmusicals.service;
 
-mport java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.jkmusicals.model.Product;
 import com.jkmusicals.repository.ProductRepository;
 
@@ -51,6 +45,7 @@ public class ProductService {
         existing.setDescription(updatedProduct.getDescription());
         existing.setThumbnail(updatedProduct.getThumbnail());
         existing.setStock(updatedProduct.getStock());
+        existing.setImage(updatedProduct.getImage());
 
         return productRepository.save(existing);
     }
