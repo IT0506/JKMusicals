@@ -1,0 +1,2 @@
+import React from "react";
+import{Link}from"react-router-dom";export default function Login(){return <section className="auth-page"><form className="auth-card"><h1>Login</h1><input type="email" placeholder="Email"/><input type="password" placeholder="Password"/><button className="primary-button" type="button">Login</button><p>New customer? <Link to="/register">Create account</Link></p></form></section>}
