@@ -57,6 +57,10 @@ export function ShopProvider({ children }) {
     );
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   // ---------------- WISHLIST ----------------
   const [wishlist, setWishlist] = useState([]);
 
@@ -109,6 +113,7 @@ export function ShopProvider({ children }) {
     removeFromCart,
     increaseQty,
     decreaseQty,
+    clearCart,
 
     wishlist,
     toggleWishlist,
